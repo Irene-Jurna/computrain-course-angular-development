@@ -1,0 +1,13 @@
+<div class="memory-field">
+    @for(card of cardDeck; track card.name) {
+        <app-card 
+            [name]="card.name"
+            [exposed]="card.exposed"
+            [hidden]="card.hidden"
+            (cardClicked)="onClickCard(card)"
+            >
+        </app-card>
+    }
+</div>
+
+

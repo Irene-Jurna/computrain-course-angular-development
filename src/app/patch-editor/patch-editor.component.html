@@ -1,0 +1,12 @@
+<div class="patch-editor">
+    <div>
+        <input type="range" min="0" max="255" [(ngModel)]="patch.r"><output [value]="patch.r"></output><br>
+        <input type="range" min="0" max="255" [(ngModel)]="patch.g"><output [value]="patch.g"></output><br>
+        <input type="range" min="0" max="255" [(ngModel)]="patch.b"><output [value]="patch.b"></output><br>
+        <input type="range" min="0" max="1" step="0.01" [(ngModel)]="patch.a"><output [value]="patch.a"></output><br>
+        <input type="text" [(ngModel)]="patch.name">
+        <div class="colorbox" [style.backgroundColor]="patch.rgba"></div>
+        <button (click)="cancel.emit()">Cancel</button>
+        <button (click)="save.emit()">Save</button>
+    </div>
+</div>

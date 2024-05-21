@@ -1,0 +1,10 @@
+<div class="cardbox" (click)="onClickCard()">
+        @if(exposed && !hidden) {
+            <img src="assets/images/{{ name }}.jpg" alt="{{name}}">
+        }
+        @if(!exposed && !hidden) {
+            <div class="cover"></div>
+        }
+        @if(hidden) {
+            <div class="hidden"></div>
+        }

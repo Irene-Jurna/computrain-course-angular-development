@@ -1,0 +1,30 @@
+.patch-editor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.patch-editor > div {
+    width: 200px;
+    background-color: white;
+    margin: auto;
+    position: relative;
+    top: 30vh;
+    padding: 20px;
+}
+
+.colorbox {
+    height: 100px;
+    margin: 20px;
+}
+
+input {
+    margin: 10px;
+}
+
+input[type="text"] {
+    padding: 5px;
+}
