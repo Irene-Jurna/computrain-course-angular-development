@@ -27,20 +27,13 @@ export class PatchesService {
     return this.patches;
   }
 
-  // getPatches$():Observable<ColorPatch[]> {
-  //   return this.patches$;
-  // }
-
   // BehaviorSubject is een hot observable (je kan subscriben op een hot observable)
     getPatches$():BehaviorSubject<ColorPatch[]> {
     return this.patchesSubject$;
   }
 
   update(patch:ColorPatch, updatedPatch:ColorPatch) {
-    // Verzend de patch naar de API 
-    console.log(this.patches.indexOf(patch));
     this.patches[this.patches.indexOf(patch)] = updatedPatch;
-    // this.patches[this.patches.indexOf(this.patches.find(p => p.id == patch.id) as ColorPatch)] = updatedPatch;
     this.patchesSubject$.next(this.patches);
   }
 

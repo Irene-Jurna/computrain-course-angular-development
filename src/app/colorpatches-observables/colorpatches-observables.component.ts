@@ -16,7 +16,6 @@ import { AsyncPipe } from '@angular/common';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-// Implement toevoegen voor ngOnInit
 export class ColorpatchesObservablesComponent implements OnInit {
 
   patchesService = inject(PatchesService);
@@ -57,22 +56,8 @@ export class ColorpatchesObservablesComponent implements OnInit {
 
     this.editPatch = new ColorPatch(0, 0, 0, 1, '');
     this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
+  } 
 
-  //   if (this.editState) {
-  //     if (this.currentPatch.name !== '') {
-  //       // Update bestaande patch
-  //       this.patchesService.update(this.currentPatch, this.editPatch);
-  //     } else {
-  //       // Maak nieuwe patch
-  //       this.patchesService.create(this.editPatch);
-  //     }
-  //   }
-  //   this.editState = false;
-  //   this.editPatch = new ColorPatch(0, 0, 0, 1, '');
-  //   this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
-  }
-
-  // Aanpassing: Initialiseer een nieuwe patch
   onClickAdd() {
     this.editPatch = new ColorPatch(0, 0, 0, 1, '');
     this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
