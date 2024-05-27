@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { ColorPatch } from "./colorpatch";
 import { HttpClient } from "@angular/common/http";
-import { Observable, map } from "rxjs";
+import { BehaviorSubject, Observable, map } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -20,21 +20,46 @@ export class PatchesService {
     new ColorPatch(239, 164, 139, 1, 'atomic tangerine'),
     new ColorPatch(161, 74, 118, 1, 'magenta haze')
   ];
-
-  // Patches stream aanmaken
-  patches$: Observable<ColorPatch[]>
+    patches$!: Observable<ColorPatch[]>
+    patchesSubject$:BehaviorSubject<ColorPatch[]> = new BehaviorSubject(this.patches);
 
   getPatches():ColorPatch[]{
     return this.patches;
   }
 
-  getPatches$():Observable<ColorPatch[]> {
-    return this.patches$;
+  // getPatches$():Observable<ColorPatch[]> {
+  //   return this.patches$;
+  // }
+
+  // BehaviorSubject is een hot observable (je kan subscriben op een hot observable)
+    getPatches$():BehaviorSubject<ColorPatch[]> {
+    return this.patchesSubject$;
+  }
+
+  update(patch:ColorPatch, updatedPatch:ColorPatch) {
+    // Verzend de patch naar de API 
+    console.log(this.patches.indexOf(patch));
+    this.patches[this.patches.indexOf(patch)] = updatedPatch;
+    // this.patches[this.patches.indexOf(this.patches.find(p => p.id == patch.id) as ColorPatch)] = updatedPatch;
+    this.patchesSubject$.next(this.patches);
+  }
+
+  delete(patch:ColorPatch) {
+    // Delete de patch via API 
+
+  }
+
+  create(patch:ColorPatch) {
+    // Verzend nieuwe patch naar de API 
+  }
+
+  fetchPatches() {
+    this.patches$ = this.http.get<ColorPatch[]>('https://my-json-server.typicode.com/cmmnct/patchDemo/patches').pipe(
+            map(patches => patches.map(patch => new ColorPatch(patch.r, patch.g, patch.b, patch.a, patch.name, patch.id)))
+        );
   }
 
     constructor() {
-        this.patches$ = this.http.get<ColorPatch[]>('https://my-json-server.typicode.com/cmmnct/patchDemo/patches').pipe(
-            map(patches => patches.map(patch => new ColorPatch(patch.r, patch.g, patch.b, patch.a, patch.name, patch.id)))
-        );
+        this.fetchPatches();
     }
 }

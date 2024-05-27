@@ -1,0 +1,24 @@
+.colorbox {
+    height: 200px;
+}
+
+.thumbbox {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.thumbbox > div {
+    width: 64px;
+    aspect-ratio: 1/1;
+}
+
+.big {
+    font-size: 56px;
+}
+
+#add-btn {
+    border: 10px solid rgba(217, 184, 196, 1);
+    height: 133px;
+    width: 133px;
+    margin: 25px 10px;
+}
