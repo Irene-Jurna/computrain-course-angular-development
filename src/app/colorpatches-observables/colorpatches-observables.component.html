@@ -6,4 +6,5 @@
     @for(patch of patches$ | async; track patch.id) {
         <app-colorthumb [rgba]="patch.rgba" [name]="patch.name" (delete)="onDeletePatch(patch)" (edit)="onEditPatch(patch)" />
     }
+    <div class="material-icons big" id="add-btn" (click)="onClickAdd()"> add </div>
 </div>

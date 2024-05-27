@@ -44,14 +44,14 @@ export class PatchesService {
     this.patchesSubject$.next(this.patches);
   }
 
-  delete(patch:ColorPatch) {
-    // Delete de patch via API 
+    delete(patch: ColorPatch) {
+        this.patches.splice(this.patches.indexOf(patch), 1);
+    }
 
-  }
-
-  create(patch:ColorPatch) {
-    // Verzend nieuwe patch naar de API 
-  }
+    create(patch: ColorPatch) {
+        this.patches.push(patch);
+        this.patchesSubject$.next(this.patches);
+    }
 
   fetchPatches() {
     this.patches$ = this.http.get<ColorPatch[]>('https://my-json-server.typicode.com/cmmnct/patchDemo/patches').pipe(

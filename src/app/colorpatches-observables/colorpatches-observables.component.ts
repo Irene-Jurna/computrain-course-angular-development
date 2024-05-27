@@ -28,13 +28,12 @@ export class ColorpatchesObservablesComponent implements OnInit {
   editPatch = new ColorPatch(0, 0, 0, 1, '');
   patches$!: BehaviorSubject<ColorPatch[]>;
 
-  // LifeCycleHooks 
   ngOnInit() {
     this.patches$ = this.patchesService.getPatches$(); 
   }
 
   onDeletePatch(patch:ColorPatch) {
-    
+    this.patchesService.delete(patch);
   }
 
   onEditPatch(patch:ColorPatch) {
@@ -48,14 +47,35 @@ export class ColorpatchesObservablesComponent implements OnInit {
     this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
   }
 
-  // Deze werkt nog niet 
   onSavePatch() {
     this.editState = false;
-    this.patchesService.update(this.currentPatch, this.editPatch);
+    if (this.currentPatch.name) {
+      this.patchesService.update(this.currentPatch, this.editPatch);
+    } else {
+      this.patchesService.create(this.editPatch);
+    }
+
     this.editPatch = new ColorPatch(0, 0, 0, 1, '');
+    this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
+
+  //   if (this.editState) {
+  //     if (this.currentPatch.name !== '') {
+  //       // Update bestaande patch
+  //       this.patchesService.update(this.currentPatch, this.editPatch);
+  //     } else {
+  //       // Maak nieuwe patch
+  //       this.patchesService.create(this.editPatch);
+  //     }
+  //   }
+  //   this.editState = false;
+  //   this.editPatch = new ColorPatch(0, 0, 0, 1, '');
+  //   this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
   }
 
+  // Aanpassing: Initialiseer een nieuwe patch
   onClickAdd() {
+    this.editPatch = new ColorPatch(0, 0, 0, 1, '');
+    this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
     this.editState = true;
   }
 
