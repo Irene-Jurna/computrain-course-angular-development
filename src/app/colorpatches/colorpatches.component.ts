@@ -1,35 +1,39 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ColorPatch } from '../models/colorpatch';
 import { ColorthumbComponent } from '../colorthumb/colorthumb.component';
 import { PatchEditorComponent } from '../patch-editor/patch-editor.component';
+import { PatchesService } from '../models/patches.service';
+import { Observable } from 'rxjs';
+import { AsyncPipe } from '@angular/common';
 
 @Component({
   selector: 'app-colorpatches',
   standalone: true,
-  imports: [FormsModule, ColorthumbComponent, PatchEditorComponent],
+  imports: [FormsModule, ColorthumbComponent, PatchEditorComponent, AsyncPipe],
   templateUrl: './colorpatches.component.html',
   styleUrl: './colorpatches.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ColorpatchesComponent {
+
+// Implement toevoegen voor ngOnInit
+export class ColorpatchesComponent implements OnInit {
+
+  patchesService = inject(PatchesService);
 
   name = "Irene"
   editState = false;
 
   currentPatch = new ColorPatch(56, 87, 98, 1, "smoke");
   editPatch = new ColorPatch(0, 0, 0, 1, '');
+  patches!: ColorPatch[];
+  patches$!: Observable<ColorPatch[]>;
 
-  patches:ColorPatch[] = [
-    new ColorPatch(250, 246, 246, 1, 'snow'),
-    new ColorPatch(11, 29, 81, 1, 'pen blue'),
-    new ColorPatch(255, 87, 20, 1, 'giants orange'),
-    new ColorPatch(218, 237, 189, 1, 'tea green'),
-    new ColorPatch(27, 231, 255, 1, 'electric blue'),
-    new ColorPatch(255, 230, 109, 1, 'naples yellow'),
-    new ColorPatch(239, 164, 139, 1, 'atomic tangerine'),
-    new ColorPatch(161, 74, 118, 1, 'magenta haze')
-  ];
+  // LifeCycleHooks 
+  ngOnInit() {
+    this.patches = this.patchesService.getPatches();
+    this.patches$ = this.patchesService.getPatches$(); 
+  }
 
   onDeletePatch(patch:ColorPatch) {
     this.patches.splice(this.patches.indexOf(patch),1);

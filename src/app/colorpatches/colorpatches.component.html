@@ -8,3 +8,10 @@
 @if(editState) {
     <app-patch-editor [patch]="editPatch" (cancel)="onCancelEdit()" (save)="onSavePatch()" />
 }
+
+<hr>
+<div class="thumbbox">
+    @for(patch of patches$ | async; track patch.id) {
+        <app-colorthumb [rgba]="patch.rgba" [name]="patch.name" (delete)="onDeletePatch(patch)" (edit)="onEditPatch(patch)" />
+    }
+</div>
