@@ -52,7 +52,16 @@ export class PatchesService {
         );
   }
 
+  fetchPatchesSubject() {
+        this.http.get<ColorPatch[]>('https://my-json-server.typicode.com/cmmnct/patchDemo/patches').pipe(
+            map(patches => patches.map(patch => new ColorPatch(patch.r, patch.g, patch.b, patch.a, patch.name, patch.id)))).subscribe(data => {
+              this.patches = data;
+            this.patchesSubject$.next(this.patches);
+            });
+  }
+
     constructor() {
-        this.fetchPatches();
+        this.fetchPatches(); // haal de patches op en stop dit in een (cold) Observable
+        this.fetchPatchesSubject(); // haal de patches op, stop in een array, en voeg dit toe aan een (hot) Observable 
     }
 }

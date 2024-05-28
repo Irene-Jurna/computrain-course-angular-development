@@ -29,6 +29,7 @@ export class ColorpatchesObservablesComponent implements OnInit {
 
   ngOnInit() {
     this.patches$ = this.patchesService.getPatches$(); 
+    this.resetState();
   }
 
   onDeletePatch(patch:ColorPatch) {
@@ -43,7 +44,7 @@ export class ColorpatchesObservablesComponent implements OnInit {
 
   onCancelEdit() {
     this.editState = false;
-    this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
+    this.resetState();
   }
 
   onSavePatch() {
@@ -53,15 +54,18 @@ export class ColorpatchesObservablesComponent implements OnInit {
     } else {
       this.patchesService.create(this.editPatch);
     }
-
-    this.editPatch = new ColorPatch(0, 0, 0, 1, '');
-    this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
+    this.resetState();
   } 
 
   onClickAdd() {
     this.editPatch = new ColorPatch(0, 0, 0, 1, '');
     this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
     this.editState = true;
+  }
+
+  resetState() {
+    this.editPatch = new ColorPatch(0, 0, 0, 1, '');
+    this.currentPatch = new ColorPatch(0, 0, 0, 1, '');
   }
 
 }
