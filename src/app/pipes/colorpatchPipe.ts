@@ -4,6 +4,7 @@ import { ColorPatch } from "../models/colorpatch";
 @Pipe({
     name: 'colorToString', 
     standalone: true,
+    pure: false
 })
 
 export class ColorpatchPipe implements PipeTransform {
