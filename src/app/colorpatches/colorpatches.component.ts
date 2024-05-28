@@ -6,14 +6,15 @@ import { PatchEditorComponent } from '../patch-editor/patch-editor.component';
 import { PatchesService } from '../models/patches.service';
 import { Observable } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { ColorpatchPipe } from "../pipes/colorpatchPipe";
 
 @Component({
-  selector: 'app-colorpatches',
-  standalone: true,
-  imports: [FormsModule, ColorthumbComponent, PatchEditorComponent, AsyncPipe],
-  templateUrl: './colorpatches.component.html',
-  styleUrl: './colorpatches.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-colorpatches',
+    standalone: true,
+    templateUrl: './colorpatches.component.html',
+    styleUrl: './colorpatches.component.css',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [FormsModule, ColorthumbComponent, PatchEditorComponent, AsyncPipe, ColorpatchPipe]
 })
 
 // Implement toevoegen voor ngOnInit
